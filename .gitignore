@@ -5,6 +5,5 @@ the_grammy_awards.csv
 client_secrets.json
 config_db.json
 credentials_module.json
-merge.csv
 load_csv_to_db.py
 
