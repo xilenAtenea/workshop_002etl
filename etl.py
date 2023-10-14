@@ -331,7 +331,7 @@ def store(json_data):
     logging.info("****MY JSON DATA IS: ", json_data)
     logging.info("****TYPE OF JSON DATA: ", type(json_data))
 
-    id_folder="1Y-8YJ6FSGWCsVPdzQ3k18H0v2eF_MWeq"
+    id_folder= ""#Here you should put your own folder's path to upload the file 'merge.csv'
     path_file="./data/merge.csv"
     upload_file(path_file,id_folder)
 
