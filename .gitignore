@@ -1,9 +1,8 @@
 wenv/
-settings.yaml
-spotify_dataset.csv
-the_grammy_awards.csv
-client_secrets.json
+data/spotify_dataset.csv
+data/the_grammy_awards.csv
+pydrive/client_secrets.json
+pydrive/credentials_module.json
 config_db.json
-credentials_module.json
 load_csv_to_db.py
 

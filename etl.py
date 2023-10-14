@@ -1,9 +1,11 @@
 import pandas as pd
 import json
 import logging
-from transform_spotify import drop_unnamed, artists, bool_artists, count_second_artists, bye_duplicates, simplified_genre, drop_artists, drop_second_artists, drop_na, drop_unn_columns
-from transform_grammys import drop_img, fill_nulls_parenthesis, fill_nulls_split, fill_nulls_worker, fill_nulls_category, cleaning_category, drop_na_rows, drop_unnecesary_columns, rename_column
-from fixing_merge import filling_nominated, bool_nominated, fill_na, rename_columns_merge
+import sys
+sys.path.append('./transformations')
+from transformations.transform_spotify import drop_unnamed, artists, bool_artists, count_second_artists, bye_duplicates, simplified_genre, drop_artists, drop_second_artists, drop_na, drop_unn_columns
+from transformations.transform_grammys import drop_img, fill_nulls_parenthesis, fill_nulls_split, fill_nulls_worker, fill_nulls_category, cleaning_category, drop_na_rows, drop_unnecesary_columns, rename_column
+from transformations.fixing_merge import filling_nominated, bool_nominated, fill_na, rename_columns_merge
 import mysql.connector
 from pydrive2.auth import GoogleAuth
 from pydrive2.drive import GoogleDrive
@@ -19,7 +21,7 @@ def create_db_connection():
 #################### SPOTIFY
 
 def read_csv():
-    df=pd.read_csv("spotify_dataset.csv")
+    df=pd.read_csv("./data/spotify_dataset.csv")
     logging.info("DF created: ", df)
     return df.to_json(orient='records')
 
@@ -168,7 +170,7 @@ def merge(data_csv, data_db):
     df_merge=rename_columns_merge(df_merge)
     logging.info("****REVISION DE COLUMNAS:", df_merge.columns)
 
-    df_merge.to_csv("merge.csv", index=False)
+    df_merge.to_csv("./data/merge.csv", index=False)
 
     return df_merge.to_json(orient='records')
 
@@ -298,7 +300,7 @@ def load(json_data):
 
 ############## STORE:
 
-credentials_file = 'credentials_module.json'
+credentials_file = './pydrive/credentials_module.json'
 
 #Automatic authentication - would be necesary for our upload_file function
 def login():
@@ -330,7 +332,7 @@ def store(json_data):
     logging.info("****TYPE OF JSON DATA: ", type(json_data))
 
     id_folder="1Y-8YJ6FSGWCsVPdzQ3k18H0v2eF_MWeq"
-    path_file="merge.csv"
+    path_file="./data/merge.csv"
     upload_file(path_file,id_folder)
 
 
